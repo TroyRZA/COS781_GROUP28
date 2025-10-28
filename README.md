@@ -7,7 +7,7 @@ This repository contains our efforts to replicate "Mining Frequent Itemsets from
 Ensure you're in a unix-like environment, if you're using Windows - use WSL.
 
 - Make setup script executable: `chmod +x setup.sh`
-- Run setup script: ./setup
+- Run setup script: `./setup`
 
 This will create a virtual environment, install all dependencies and create necessary files.
 

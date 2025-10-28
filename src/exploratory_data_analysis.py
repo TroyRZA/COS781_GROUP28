@@ -2,27 +2,40 @@ from dotenv import load_dotenv
 import pandas as pd
 import os
 
-DATA_FILE = None;
-
-
 load_dotenv()
 path = os.getenv("DATASET_PATH")
 
 if not path:
-    print("DATASET_PATH NOT FOUND")
+    raise ValueError("DATASET_PATH NOT FOUND")
 
-print("files available in datset:")
+print("Files available in dataset:")
+DATA_FILE = None
 for f in os.listdir(path):
-    print(f, "\n")
-    if(f):
+    print(f)
+    if f.endswith('.csv'):
         DATA_FILE = os.path.join(path, f)
 
 if not DATA_FILE:
-    print("COULDNT FIND CSV IN DATASET FOLDER")
+    raise ValueError("No CSV file found in dataset folder")
 
-print("DATA INSPECTION:")
+print("\nDATA INSPECTION:")
+pd.set_option('display.float_format', '{:.2f}'.format)
 df = pd.read_csv(DATA_FILE, encoding='utf-8-sig')
-print("DF SHAPE:")
-print(df.shape)
-print(df.head())
-print(df.info())
+
+print("\nDF SHAPE:", df.shape)
+print("\nFEATURE TYPES:")
+print(df.dtypes)
+
+print("\nMISSING VALUES:")
+print(df.isnull().sum())
+
+print("\nNUMERICAL FEATURES SUMMARY:")
+print(df.describe())
+
+print("\nCATEGORICAL FEATURES SUMMARY:")
+print(df.describe(include=['object', 'category']))
+
+print("\nMISSING VALUE PERCENTAGES:")
+print((df.isnull().mean() * 100).round(2))
+
+#problems here because identifiers are treated as numbers need to record this in report. Will have to do preprocessing etc.
