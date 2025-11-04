@@ -1,3 +1,7 @@
 kagglehub
 pandas
 python-dotenv
+matplotlib
+seaborn
+jupyter
+ipykernel
